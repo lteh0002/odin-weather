@@ -2,13 +2,14 @@
 // // const env = require('dotenv')
 // env.config()
 
-import API_KEY from "./api.js"
+import API_KEY from "./hide/api.js"
 
 const printWeather = document.querySelector('.weather')
 const printTemp = document.querySelector('.temperature')
+const searchBar = document.querySelector('#searchbar')
 
 async function getLocation() {
-    const data = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=Paris&limit=5&appid=${API_KEY}`)
+    const data = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=Sungai+Siput&limit=5&appid=${API_KEY}`)
     const result = await data.json()
     return [result[0].lat, result[0].lon]
 }
@@ -22,7 +23,7 @@ async function fetchWeather() {
     // console.log(result.main.temp)
     printWeather.textContent = result.weather[0].main 
     printTemp.textContent = Math.floor(result.main.temp)
-
 }
 
 fetchWeather()
+searchCity()
