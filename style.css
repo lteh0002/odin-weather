@@ -5,7 +5,7 @@
   'FILL' 0,
   'wght' 400,
   'GRAD' 0,
-  'opsz' 48
+  'opsz' 48,
 }
 
 * {
@@ -20,7 +20,7 @@
     background-color: #005a86;
     color: white;
     justify-content: space-between;
-    padding: 20px;
+    padding: 15px;
 }
 
 .right-head {
@@ -30,20 +30,23 @@
 }
 
 .right-head p{
+    display: flex;
     margin-left: 5px;
+    align-items: center;
 }
 
-.weather-display {
-    padding: 30px;
-    margin: 10px;
+#menu {
+    margin-left: 10px;
+    font-size: 28px;
 }
 
 .search {
     display: flex;
     background-color: #427b9e;
     padding: 10px;
-    width: 400px;
+    width: 350px;
     border-radius: 1rem;
+    margin-left: 50px;
 }
 
 #searchbar {
@@ -73,10 +76,41 @@
     cursor: pointer;
 }
 
-.weather {
-    padding: 5px;
+/* .weather-display {
+    width: 70vw;
+} */
+
+.today-temp {
+    background-color: #427B9E;
+    padding: 20px;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    color: white;
+    justify-content: space-between;
 }
 
-.temperature {
+.today-temperature {
+    font-size: 2rem;
+}
+
+.today-weather {
+    font-size: 1rem;
+}
+
+.today-temp .todayicon {
+    font-size: 50px;
+}
+
+.today-temp .humid {
+    font-size: 15px;
+    margin-right: 5px;
+}
+
+.today-humid {
+    display: flex;
+    align-items: center;
+    background-color: grey;
+    border-radius: 1rem;
     padding: 5px;
 }
