@@ -13,8 +13,10 @@ const feelsLike = document.querySelector('#feels-like')
 const wind = document.querySelector('#wind')
 const humidity = document.querySelector('#humidity')
 const background = document.querySelector('#bg')
-
-// const todayDate = format(new Date(), 'dd/MMM/yyyy')
+const sunrisedate = document.querySelector('.sunrisedate')
+const sunsetdate = document.querySelector('.sunsetdate')
+const sunrise = document.querySelector('.sunrisetime')
+const sunset = document.querySelector('.sunsettime')
 
 async function getLocation() {
   const data = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=Sungai+Siput&limit=5&appid=${API_KEY}`)
@@ -28,13 +30,42 @@ async function fetchWeather() {
   const result = await data.json()
   console.log(result)
 
+
+
   background.src = 'weather.avif'
   weather.textContent = result.weather[0].main
   city.textContent = result.name
   temperature.textContent = Math.round(result.main.temp) + '°'
-  feelsLike.textContent = 'Feels Like: ' + result.main.feels_like + '°'
+  feelsLike.textContent = 'Feels Like: ' + Math.round(result.main.feels_like) + '°'
   wind.textContent = 'Wind Speed: ' + result.wind.speed + ' km/h'
   humidity.textContent = 'Humidity: ' + result.main.humidity + ' %'
+
+  const sunrisetime = new Date(result.sys.sunrise * 1000)
+  const sunsettime = new Date(result.sys.sunset * 1000)
+
+  let sunrisemonth = sunrisetime.getMonth()
+  let sunsetmonth = sunsettime.getMonth()
+
+  let sunrisedatenum = sunrisetime.getDate()
+  let sunsetdatenum = sunsettime.getDate()
+
+  let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+  let sunrisehour = sunrisetime.getHours()
+  let sunsethour = sunsettime.getHours()
+
+  if (sunsethour > 12) {
+    sunsethour = sunsethour - 12
+  }
+
+  let sunrisemin = sunrisetime.getMinutes()
+  let sunsetmin = sunsettime.getMinutes()
+
+  sunrisedate.textContent = sunrisedatenum + ' ' + month[sunrisemonth]
+  sunsetdate.textContent = sunrisedatenum + ' ' + month[sunrisemonth]
+
+  sunrise.textContent = sunrisehour + ':' + sunrisemin + ' ' + "am"
+  sunset.textContent = sunsethour + ':' + sunsetmin + ' ' + "pm"
 }
 
 fetchWeather()

@@ -19,7 +19,7 @@
 .head {
     background-color: #005a86;
     color: white;
-    height: 8vh;
+    height: 70px;
     position: relative;
     z-index: 6;
 }
@@ -27,20 +27,25 @@
 .head-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 100%;
   margin: 0 3vw;
+  font-size: 2vw;
+}
+
+.head-container h1 {
+  display: none;
 }
 
 .right-head {
-    display: flex;
+    display: none;
+    /* display: flex; */
     font-size: 17px;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     margin-left: 2vw;
 }
 
 .right-head p{
-    display: flex;
     margin-left: 5px;
     align-items: center;
 }
@@ -54,7 +59,7 @@
     display: flex;
     background-color: #427b9e;
     padding: 10px;
-    width: 350px;
+    width: 60vw;
     border-radius: 1rem;
     margin-left: 2vw;
 }
@@ -93,7 +98,18 @@
 .weather-container {
   padding: 0 3vw;
   position: relative;
-  top: 50vw;
+  top: 25vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10vw;
+}
+
+.weather-display {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #weather {
@@ -119,7 +135,7 @@
 }
 
 #feels-like, #wind, #humidity {
-  font-size: 3vw;
+  font-size: 3.5vw;
 }
 
 .weather-info {
@@ -128,18 +144,66 @@
   gap: 2vw;
 }
 
+.fa-regular {
+  height: 50px;
+}
+
+.sun {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 100%; */
+  gap: 10vw;
+}
+
+.sunrise, .sunset {
+  height: 10vw;
+}
+
+.suncontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3vw;
+}
+
+.sunrisetime, .sunsettime, .sunrisedate, .sunsetdate {
+  font-size: 5vw;
+}
+
+.suntime {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 @media screen and (min-width: 640px) {
   .weather-container {
     position: relative;
-    top: 40vw;
+    top: 30vw;
+    flex-direction: row;
+    justify-content: center;
   }
+
+  .head-container {
+    font-size: 12px;
+    justify-content: space-between;
+  }
+
+  .head-container h1 {
+    display: block;
+  }
+
+  .right-head {
+    display: flex;
+}
 
   #city-name {
     font-size: 6.5vw;
   }
 
   #feels-like, #wind, #humidity {
-    font-size: 3vw;
+    font-size: 2.5vw;
   }
 
   #weather {
@@ -147,18 +211,28 @@
   }
   
   #temperature {
-    font-size: 10vw;
+    font-size: 4vw;
   }
   
   #divider {
     font-size: 5vw;
+  }
+
+  .weather-display {
+    width: 50%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sunrisetime, .sunsettime, .sunrisedate, .sunsetdate {
+    font-size: 2vw;
   }
 }
 
 @media screen and (min-width: 768px) {
   .weather-container {
     position: relative;
-    top: 30vw;
+    top: 25vw;
   }
 
   #city-name {
@@ -180,13 +254,22 @@
   #divider {
     font-size: 5vw;
   }
+
+  /* .weather-display {
+    width: 50%;
+  } */
+  
 }
 
 @media screen and (min-width: 1024px) {
   .weather-container {
     position: relative;
-    top: 25vw;
+    top: 20vw;
   }
+
+  /* .weather-display {
+    width: 50%;
+  } */
 }
 
 @media screen and (min-width: 1280px) {
