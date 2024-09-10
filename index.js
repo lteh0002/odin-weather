@@ -1,10 +1,4 @@
-// import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
-// dotenv.config()
-
-// const API_KEY = process.env.API_KEY
-
-// import { format, compareAsc } from 'date-fns'
-import API_KEY from "./hide/api.js"
+const API_KEY = '2637a4df1d01664d70473ea8500bc53f'
 
 const weather = document.querySelector('#weather')
 const city = document.querySelector('#city-name')
@@ -18,30 +12,38 @@ const sunsetdate = document.querySelector('.sunsetdate')
 const sunrise = document.querySelector('.sunrisetime')
 const sunset = document.querySelector('.sunsettime')
 
-async function getLocation() {
-  const data = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=Sungai+Siput&limit=5&appid=${API_KEY}`)
-  const result = await data.json()
-  return [result[0].lat, result[0].lon]
+async function getLocation(city = 'kuala+lumpur') {
+  try {
+    const data = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${API_KEY}`)
+    const result = await data.json()
+    return [result[0].lat, result[0].lon]
+  } catch (error) {
+      alert('Location not found')
+  }
 }
 
-async function fetchWeather() {
-  const [lat, lon] = await getLocation()
-  const data = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=2637a4df1d01664d70473ea8500bc53f`)
-  const result = await data.json()
-  console.log(result)
+async function getWeather(lat, lon) {
+  try {
+    const data = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`)
+    return await data.json()
+  } catch (error) { 
+    alert('Cannot get weather data')
+  }
+}
 
-
+function updateDisplay(data) {
+  const { weather, name, main, wind, sys } = data;
 
   background.src = 'weather.avif'
-  weather.textContent = result.weather[0].main
-  city.textContent = result.name
-  temperature.textContent = Math.round(result.main.temp) + '°'
-  feelsLike.textContent = 'Feels Like: ' + Math.round(result.main.feels_like) + '°'
-  wind.textContent = 'Wind Speed: ' + result.wind.speed + ' km/h'
-  humidity.textContent = 'Humidity: ' + result.main.humidity + ' %'
+  weather.textContent = weather[0].main
+  city.textContent = name
+  temperature.textContent = Math.round(main.temp) + '°'
+  feelsLike.textContent = 'Feels Like: ' + Math.round(main.feels_like) + '°'
+  wind.textContent = 'Wind Speed: ' + wind.speed + ' km/h'
+  humidity.textContent = 'Humidity: ' + main.humidity + ' %'
 
-  const sunrisetime = new Date(result.sys.sunrise * 1000)
-  const sunsettime = new Date(result.sys.sunset * 1000)
+  const sunrisetime = new Date(sys.sunrise * 1000)
+  const sunsettime = new Date(sys.sunset * 1000)
 
   let sunrisemonth = sunrisetime.getMonth()
   let sunsetmonth = sunsettime.getMonth()
@@ -66,6 +68,12 @@ async function fetchWeather() {
 
   sunrise.textContent = sunrisehour + ':' + sunrisemin + ' ' + "am"
   sunset.textContent = sunsethour + ':' + sunsetmin + ' ' + "pm"
+}
+
+async function fetchWeather() {
+  const [lat, lon] = await getLocation()
+  const result = await getWeather(lat, lon);
+  updateDisplay(result)
 }
 
 fetchWeather()
